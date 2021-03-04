@@ -3,7 +3,6 @@ import { RegistrationService } from '../application/registration.service';
 import { RegistrationController } from './registration.controller';
 import { UserEntityMapper } from './user-entity.mapper';
 import {
-  JwtConfig,
   PasswordEncryptor,
   UserEntityRepository,
   UserRepository,
@@ -16,6 +15,7 @@ import { JwtStrategy } from './jwt.strategy';
 import { JwtTokenService } from '../application/jwt-token.service';
 import { UserMapper } from '../application/user.mapper';
 import { SharedModule } from '../../shared/infrastructure/shared.module';
+import { AppConfig } from '../../infrastructure/app.config';
 
 @Module({
   controllers: [RegistrationController, AuthenticationController],
@@ -32,9 +32,11 @@ import { SharedModule } from '../../shared/infrastructure/shared.module';
   ],
   imports: [
     PassportModule,
-    JwtModule.register({
-      secret: JwtConfig.secret,
-      // signOptions: { expiresIn: '60s' },
+    JwtModule.registerAsync({
+      inject: [AppConfig],
+      useFactory: (config: AppConfig) => ({
+        secret: config.getJwtSecret(),
+      }),
     }),
     SharedModule,
   ],

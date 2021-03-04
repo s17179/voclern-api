@@ -4,10 +4,10 @@ import { Dictionary, IPrimaryKey } from '@mikro-orm/core';
 
 export default {
   entities: [UserEntity], // TODO auto detection?
-  dbName: 'voclern', // TODO get credentials from env
-  host: 'localhost',
-  password: 'qwezxcdsa123',
-  type: 'postgresql',
+  dbName: process.env.DATABASE_NAME,
+  host: process.env.DATABASE_HOST,
+  password: process.env.DATABASE_PASSWORD,
+  type: process.env.DATABASE_TYPE,
   migrations: {
     tableName: 'mikro_orm_migrations', // name of database table with log of executed transactions
     path: './src/migrations', // path to the folder with migrations

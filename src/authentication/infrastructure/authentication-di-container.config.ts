@@ -20,7 +20,3 @@ export const PasswordEncryptor = {
   provide: 'PasswordEncryptor',
   useClass: BcryptPasswordEncryptor,
 };
-
-export const JwtConfig = {
-  secret: '7bc328f5cb4b4147a77854bc777f183d',
-};
