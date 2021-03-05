@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { Transaction } from './shared-di-container.config';
 
+@Global()
 @Module({
   providers: [Transaction],
   exports: [Transaction],
