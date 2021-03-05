@@ -1,19 +1,22 @@
-import { RegisteredUser } from '../application/registered-user';
+import { User } from '../domain/user';
 import { UserEntity } from './user.entity';
 import { Injectable } from '@nestjs/common';
+import { UserModelGetter } from './user-model.getter';
 
 @Injectable()
 export class UserEntityMapper {
-  async mapToEntity(registeredUser: RegisteredUser): Promise<UserEntity> {
+  mapToEntity(user: User): UserEntity {
+    const userModelGetter = UserModelGetter.fromUser(user);
+
     return new UserEntity(
-      registeredUser.id,
-      registeredUser.email,
-      registeredUser.password,
+      userModelGetter.id,
+      userModelGetter.email,
+      userModelGetter.password,
     );
   }
 
-  mapToRegisteredUser(userEntity: UserEntity): RegisteredUser {
-    return new RegisteredUser(
+  mapToModel(userEntity: UserEntity): User {
+    return new UserModelGetter(
       userEntity.id,
       userEntity.email,
       userEntity.password,

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
-import { RegisteredUser } from './registered-user';
+import { User } from '../domain/user';
 import { RegistrationContract } from './registration.contract';
 import { Transaction } from '../../shared/application/transaction';
 import { Uuid } from '../../shared/domain/uuid';
@@ -27,13 +27,13 @@ export class RegistrationService {
       this.passwordEncryptor,
     );
 
-    const registeredUser = new RegisteredUser(id, email, password);
+    const user = User.register(id, email, password);
 
     // TODO use transactional instead
     await this.transaction.begin();
 
     try {
-      await this.userRepository.register(registeredUser);
+      await this.userRepository.register(user);
 
       await this.transaction.commit();
     } catch (e) {

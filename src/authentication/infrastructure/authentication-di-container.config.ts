@@ -3,6 +3,7 @@ import { EntityManager } from '@mikro-orm/core';
 import { UserEntity } from './user.entity';
 import { MikroOrmUserRepositoryGateway } from './mikro-orm-user.repository-gateway';
 import { BcryptPasswordEncryptor } from './bcrypt-password.encryptor';
+import { ReflectionUserMapper } from './reflection-user.mapper';
 
 export const UserEntityRepository = {
   provide: MikroOrmPostgresqlUserEntityRepository,
@@ -19,4 +20,9 @@ export const UserRepository = {
 export const PasswordEncryptor = {
   provide: 'PasswordEncryptor',
   useClass: BcryptPasswordEncryptor,
+};
+
+export const UserMapper = {
+  provide: 'UserMapper',
+  useClass: ReflectionUserMapper,
 };

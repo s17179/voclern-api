@@ -4,7 +4,7 @@ import { AuthenticationFailedException } from './authentication-failed.exception
 import { Email } from '../../shared/domain/email';
 import { UserRepository } from './user.repository';
 import { PasswordEncryptor } from '../domain/password.encryptor';
-import { RegisteredUser } from './registered-user';
+import { User } from '../domain/user';
 import { Password } from '../domain/password';
 import { AuthenticateContract } from './authenticate.contract';
 import { EntityNotFoundException } from '../../shared/application/entity-not-found.exception';
@@ -17,25 +17,16 @@ export class AuthenticationService {
     private readonly userRepository: UserRepository,
     @Inject('PasswordEncryptor')
     private readonly passwordEncryptor: PasswordEncryptor,
-    private readonly mapper: UserMapper,
+    @Inject('UserMapper') private readonly mapper: UserMapper,
   ) {}
 
   async authenticate(
     contract: AuthenticateContract,
   ): Promise<AuthenticatedUser> {
+    let user = undefined;
+
     try {
-      const registeredUser = await this.getRegisteredUserByEmail(
-        contract.email,
-      );
-
-      const passwordMatches = await this.checkIfGivenPasswordMatchesRegisteredUserPassword(
-        contract.password,
-        registeredUser.password,
-      );
-
-      if (passwordMatches) {
-        return this.getAuthenticatedUser(registeredUser);
-      }
+      user = await this.getUserByEmail(contract.email);
     } catch (e) {
       if (e instanceof EntityNotFoundException) {
         throw new AuthenticationFailedException();
@@ -44,22 +35,27 @@ export class AuthenticationService {
       }
     }
 
+    const passwordMatches = await this.checkIfGivenPasswordMatchesUserPassword(
+      contract.password,
+      user.password,
+    );
+
+    if (passwordMatches) {
+      return this.getAuthenticatedUser(user);
+    }
+
     throw new AuthenticationFailedException();
   }
 
-  private getAuthenticatedUser(
-    registeredUser: RegisteredUser,
-  ): AuthenticatedUser {
-    return this.mapper.mapToAuthenticatedUser(registeredUser);
+  private getAuthenticatedUser(user: User): AuthenticatedUser {
+    return this.mapper.mapToAuthenticatedUser(user);
   }
 
-  private async getRegisteredUserByEmail(
-    email: string,
-  ): Promise<RegisteredUser> {
+  private async getUserByEmail(email: string): Promise<User> {
     return await this.userRepository.getByEmail(Email.fromString(email));
   }
 
-  private async checkIfGivenPasswordMatchesRegisteredUserPassword(
+  private async checkIfGivenPasswordMatchesUserPassword(
     password: string,
     userPassword: Password,
   ): Promise<boolean> {

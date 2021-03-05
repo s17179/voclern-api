@@ -5,6 +5,7 @@ import { UserEntityMapper } from './user-entity.mapper';
 import {
   PasswordEncryptor,
   UserEntityRepository,
+  UserMapper,
   UserRepository,
 } from './authentication-di-container.config';
 import { PassportModule } from '@nestjs/passport';
@@ -13,7 +14,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthenticationService } from '../application/authentication.service';
 import { JwtStrategy } from './jwt.strategy';
 import { JwtTokenService } from '../application/jwt-token.service';
-import { UserMapper } from '../application/user.mapper';
 import { SharedModule } from '../../shared/infrastructure/shared.module';
 import { AppConfig } from '../../infrastructure/app.config';
 
