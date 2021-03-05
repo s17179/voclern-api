@@ -13,6 +13,10 @@ export class Migration20210223204353 extends Migration {
     );
 
     this.addSql(
+      'alter table "authentication"."users" add constraint "users_numeric_id_unique" unique ("numeric_id");',
+    );
+
+    this.addSql(
       'alter table "authentication"."users" add constraint "users_email_unique" unique ("email");',
     );
   }
