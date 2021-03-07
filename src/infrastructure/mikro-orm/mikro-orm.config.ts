@@ -29,4 +29,5 @@ export default {
       `${entityName} not found. Where clause: ${whereString}`,
     );
   },
+  debug: true,
 };
