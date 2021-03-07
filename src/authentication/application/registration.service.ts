@@ -1,12 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { User } from '../domain/user';
-import { RegistrationContract } from './registration.contract';
+import { RegistrationCommand } from './registration.command';
 import { Transaction } from '../../shared/application/transaction';
 import { Uuid } from '../../shared/domain/uuid';
 import { Email } from '../../shared/domain/email';
 import { Password } from '../domain/password';
 import { PasswordEncryptor } from '../domain/password.encryptor';
+import { UserId } from '../../shared/domain/user-id';
 
 @Injectable()
 export class RegistrationService {
@@ -17,13 +18,13 @@ export class RegistrationService {
     private readonly passwordEncryptor: PasswordEncryptor,
   ) {}
 
-  async register(contract: RegistrationContract): Promise<void> {
-    const id = Uuid.fromExisting(contract.id);
+  async register(command: RegistrationCommand): Promise<void> {
+    const id = new UserId(Uuid.fromExisting(command.id));
 
-    const email = Email.fromString(contract.email); // TODO check if unique
+    const email = Email.fromString(command.email); // TODO check if unique
 
     const password = await Password.encrypt(
-      contract.password,
+      command.password,
       this.passwordEncryptor,
     );
 

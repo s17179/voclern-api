@@ -1,14 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { AuthenticatedUser } from './authenticated-user';
+import { AuthenticatedUser } from '../../shared/application/authenticated-user';
 import { AuthenticationFailedException } from './authentication-failed.exception';
 import { Email } from '../../shared/domain/email';
 import { UserRepository } from './user.repository';
 import { PasswordEncryptor } from '../domain/password.encryptor';
 import { User } from '../domain/user';
 import { Password } from '../domain/password';
-import { AuthenticateContract } from './authenticate.contract';
 import { EntityNotFoundException } from '../../shared/application/entity-not-found.exception';
 import { UserMapper } from './user.mapper';
+import { AuthenticateQuery } from './authenticate.query';
 
 @Injectable()
 export class AuthenticationService {
@@ -20,13 +20,11 @@ export class AuthenticationService {
     @Inject('UserMapper') private readonly mapper: UserMapper,
   ) {}
 
-  async authenticate(
-    contract: AuthenticateContract,
-  ): Promise<AuthenticatedUser> {
+  async authenticate(query: AuthenticateQuery): Promise<AuthenticatedUser> {
     let user = undefined;
 
     try {
-      user = await this.getUserByEmail(contract.email);
+      user = await this.getUserByEmail(query.email);
     } catch (e) {
       if (e instanceof EntityNotFoundException) {
         throw new AuthenticationFailedException();
@@ -36,7 +34,7 @@ export class AuthenticationService {
     }
 
     const passwordMatches = await this.checkIfGivenPasswordMatchesUserPassword(
-      contract.password,
+      query.password,
       user.password,
     );
 

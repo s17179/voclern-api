@@ -1,6 +1,6 @@
 import { UserMapper } from '../application/user.mapper';
 import { User } from '../domain/user';
-import { AuthenticatedUser } from '../application/authenticated-user';
+import { AuthenticatedUser } from '../../shared/application/authenticated-user';
 import { UserModelGetter } from './user-model.getter';
 
 export class ReflectionUserMapper implements UserMapper {

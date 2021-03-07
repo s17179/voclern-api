@@ -1,4 +1,4 @@
-import { AuthenticatedUser } from './authenticated-user';
+import { AuthenticatedUser } from '../../shared/application/authenticated-user';
 import { JwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
 import { Token } from './token';
@@ -8,7 +8,7 @@ export class JwtTokenService {
   constructor(private readonly jwtService: JwtService) {}
 
   generateToken(user: AuthenticatedUser): Token {
-    const payload = { sub: user.id, email: user.email };
+    const payload = { sub: user.id.toString(), email: user.email.toString() };
 
     return new Token(this.jwtService.sign(payload));
   }

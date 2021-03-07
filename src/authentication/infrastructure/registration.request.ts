@@ -5,9 +5,9 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { RegistrationContract } from '../application/registration.contract';
+import { RegistrationCommand } from '../application/registration.command';
 
-export class RegistrationRequest implements RegistrationContract {
+export class RegistrationRequest implements RegistrationCommand {
   @IsUUID()
   id: string;
 

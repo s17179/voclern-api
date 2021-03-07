@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  Request,
+} from '@nestjs/common';
 import { RegistrationService } from '../application/registration.service';
 import { RegistrationRequest } from './registration.request';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -15,7 +22,7 @@ export class RegistrationController {
   // TODO remove
   @Get('test-auth')
   @UseGuards(JwtAuthGuard)
-  async testAuth(): Promise<{ auth: boolean }> {
-    return { auth: true };
+  async testAuth(@Request() request) {
+    return { user: request.user };
   }
 }
