@@ -4,7 +4,6 @@ import { Injectable } from '@nestjs/common';
 import { AppConfig } from '../../infrastructure/app.config';
 import { AuthenticatedUser } from '../../shared/application/authenticated-user';
 import { Uuid } from '../../shared/domain/uuid';
-import { Email } from '../../shared/domain/email';
 import { UserId } from '../../shared/domain/user-id';
 
 @Injectable()
@@ -21,9 +20,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     sub: string;
     email: string;
   }): Promise<AuthenticatedUser> {
-    const id = new UserId(Uuid.fromExisting(payload.sub));
-    const email = Email.fromString(payload.email);
+    const id = new UserId(Uuid.fromExisting(payload.sub)); // TODO check if user exists
 
-    return new AuthenticatedUser(id, email);
+    return new AuthenticatedUser(id);
   }
 }

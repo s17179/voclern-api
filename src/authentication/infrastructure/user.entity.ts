@@ -12,6 +12,7 @@ export class UserEntity {
   private readonly _id: Uuid;
 
   @Property({ name: 'numeric_id' })
+  @Unique()
   private readonly _numericId: number;
 
   @Property({ name: 'email', type: EmailType })

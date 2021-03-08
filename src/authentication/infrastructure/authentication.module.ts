@@ -3,6 +3,7 @@ import { RegistrationService } from '../application/registration.service';
 import { RegistrationController } from './registration.controller';
 import { UserEntityMapper } from './user-entity.mapper';
 import {
+  JwtTokenGenerator,
   PasswordEncryptor,
   UserEntityRepository,
   UserMapper,
@@ -28,6 +29,7 @@ import { AppConfig } from '../../infrastructure/app.config';
     JwtStrategy,
     JwtTokenService,
     UserMapper,
+    JwtTokenGenerator,
   ],
   imports: [
     PassportModule,

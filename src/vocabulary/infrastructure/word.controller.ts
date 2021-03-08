@@ -1,20 +1,21 @@
-import { Controller, Post, Request, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../../authentication/infrastructure/jwt-auth.guard';
+import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../../shared/infrastructure/jwt-auth.guard';
 import { WordFacade } from '../application/word.facade';
-import { BaseController } from '../../shared/infrastructure/base-controller';
-import { CreateWordCommand } from '../application/create-word.command';
+import { CreateWordRequest } from './create-word.request';
+import { AuthenticatedUser } from '../../shared/application/authenticated-user';
 
 @Controller('word')
 @UseGuards(JwtAuthGuard)
-export class WordController extends BaseController {
-  constructor(private readonly wordFacade: WordFacade) {
-    super();
-  }
+export class WordController {
+  constructor(private readonly wordFacade: WordFacade) {}
 
   @Post()
-  async create(@Request() request): Promise<void> {
-    const authenticatedUser = this.getAuthenticatedUser(request);
+  async create(
+    @Request() request,
+    @Body() body: CreateWordRequest,
+  ): Promise<void> {
+    const authenticatedUser: AuthenticatedUser = request.user;
 
-    this.wordFacade.create(new CreateWordCommand(authenticatedUser.id));
+    await this.wordFacade.create(body, authenticatedUser.id);
   }
 }

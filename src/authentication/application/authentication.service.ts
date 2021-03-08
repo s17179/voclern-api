@@ -8,7 +8,7 @@ import { User } from '../domain/user';
 import { Password } from '../domain/password';
 import { EntityNotFoundException } from '../../shared/application/entity-not-found.exception';
 import { UserMapper } from './user.mapper';
-import { AuthenticateQuery } from './authenticate.query';
+import { AuthenticateContract } from './authenticate.contract';
 
 @Injectable()
 export class AuthenticationService {
@@ -20,11 +20,13 @@ export class AuthenticationService {
     @Inject('UserMapper') private readonly mapper: UserMapper,
   ) {}
 
-  async authenticate(query: AuthenticateQuery): Promise<AuthenticatedUser> {
+  async authenticate(
+    contract: AuthenticateContract,
+  ): Promise<AuthenticatedUser> {
     let user = undefined;
 
     try {
-      user = await this.getUserByEmail(query.email);
+      user = await this.getUserByEmail(contract.email);
     } catch (e) {
       if (e instanceof EntityNotFoundException) {
         throw new AuthenticationFailedException();
@@ -34,7 +36,7 @@ export class AuthenticationService {
     }
 
     const passwordMatches = await this.checkIfGivenPasswordMatchesUserPassword(
-      query.password,
+      contract.password,
       user.password,
     );
 

@@ -1,5 +1,11 @@
 import { UserId } from '../../shared/domain/user-id';
+import { WordId } from './word-id';
 
 export class Word {
-  constructor(private readonly creatorId: UserId) {}
+  constructor(
+    protected readonly _id: WordId,
+    protected readonly _creatorId: UserId,
+    protected readonly _value: string,
+    protected readonly _translation: string,
+  ) {}
 }

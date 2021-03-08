@@ -1,9 +1,10 @@
 import { UserEntity } from '../../authentication/infrastructure/user.entity';
 import { EntityNotFoundException } from '../../shared/application/entity-not-found.exception';
 import { Dictionary, IPrimaryKey } from '@mikro-orm/core';
+import { WordEntity } from '../../vocabulary/infrastructure/word.entity';
 
 export default {
-  entities: [UserEntity], // TODO auto detection?
+  entities: [UserEntity, WordEntity], // TODO auto detection?
   dbName: process.env.DATABASE_NAME || 'voclern', // TODO resolve env variables for MikroORM CLI as well
   host: process.env.DATABASE_HOST || 'localhost',
   password: process.env.DATABASE_PASSWORD || 'qwezxcdsa123',

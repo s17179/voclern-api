@@ -1,7 +1,7 @@
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
-import { AuthenticateQuery } from '../application/authenticate.query';
+import { AuthenticateContract } from '../application/authenticate.contract';
 
-export class LoginRequest implements AuthenticateQuery {
+export class LoginRequest implements AuthenticateContract {
   @IsEmail()
   email: string;
 

@@ -7,6 +7,6 @@ export class ReflectionUserMapper implements UserMapper {
   mapToAuthenticatedUser(user: User): AuthenticatedUser {
     const userModelGetter = UserModelGetter.fromUser(user);
 
-    return new AuthenticatedUser(userModelGetter.id, userModelGetter.email);
+    return new AuthenticatedUser(userModelGetter.id);
   }
 }

@@ -1,15 +1,21 @@
 import { Module } from '@nestjs/common';
 import { WordController } from './word.controller';
 import { WordFacade } from '../application/word.facade';
-import { CqrsModule } from '@nestjs/cqrs';
 import {
   CommandHandlers,
+  WordEntityRepository,
   WordRepository,
 } from './vocabulary-di-container.config';
+import { WordEntityMapper } from './word-entity.mapper';
 
 @Module({
-  imports: [CqrsModule],
   controllers: [WordController],
-  providers: [WordFacade, ...CommandHandlers, WordRepository],
+  providers: [
+    WordFacade,
+    ...CommandHandlers,
+    WordRepository,
+    WordEntityMapper,
+    WordEntityRepository,
+  ],
 })
 export class VocabularyModule {}

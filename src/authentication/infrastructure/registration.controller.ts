@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { RegistrationService } from '../application/registration.service';
 import { RegistrationRequest } from './registration.request';
-import { JwtAuthGuard } from './jwt-auth.guard';
+import { JwtAuthGuard } from '../../shared/infrastructure/jwt-auth.guard';
 
 @Controller('auth')
 export class RegistrationController {

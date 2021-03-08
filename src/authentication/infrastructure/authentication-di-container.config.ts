@@ -4,6 +4,7 @@ import { UserEntity } from './user.entity';
 import { MikroOrmUserRepositoryGateway } from './mikro-orm-user.repository-gateway';
 import { BcryptPasswordEncryptor } from './bcrypt-password.encryptor';
 import { ReflectionUserMapper } from './reflection-user.mapper';
+import { NestJwtTokenGenerator } from './nest-jwt-token.generator';
 
 export const UserEntityRepository = {
   provide: MikroOrmPostgresqlUserEntityRepository,
@@ -25,4 +26,9 @@ export const PasswordEncryptor = {
 export const UserMapper = {
   provide: 'UserMapper',
   useClass: ReflectionUserMapper,
+};
+
+export const JwtTokenGenerator = {
+  provide: 'JwtTokenGenerator',
+  useClass: NestJwtTokenGenerator,
 };
