@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { UuidValidator } from './uuid.validator';
 
 export class Uuid {
-  private constructor(private uuid: string) {}
+  private constructor(private id: string) {}
 
   static fromExisting(uuid: string) {
     UuidValidator.validate(uuid);
@@ -15,6 +15,10 @@ export class Uuid {
   }
 
   toString(): string {
-    return this.uuid;
+    return this.id;
+  }
+
+  equals(uuid: Uuid): boolean {
+    return uuid.id === this.id;
   }
 }

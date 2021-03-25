@@ -15,10 +15,10 @@ export class WordEntity {
   private readonly _creatorId: Uuid;
 
   @Property({ name: 'value' })
-  private readonly _value: string;
+  private _value: string;
 
   @Property({ name: 'translation' })
-  private readonly _translation: string;
+  private _translation: string;
 
   constructor(id: Uuid, creatorId: Uuid, value: string, translation: string) {
     this._id = id;
@@ -43,7 +43,15 @@ export class WordEntity {
     return this._value;
   }
 
+  set value(value: string) {
+    this._value = value;
+  }
+
   get translation(): string {
     return this._translation;
+  }
+
+  set translation(value: string) {
+    this._translation = value;
   }
 }

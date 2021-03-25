@@ -7,8 +7,13 @@ import { MikroOrmPostgresqlWordGroupEntityRepository } from './mikro-orm-postgre
 import { WordGroupEntity } from './word-group.entity';
 import { CreateWordGroupHandler } from '../application/create-word-group.handler';
 import { MikroOrmWordGroupRepositoryGateway } from './mikro-orm-word-group.repository-gateway';
+import { UpdateWordHandler } from '../application/update-word.handler';
 
-export const CommandHandlers = [CreateWordHandler, CreateWordGroupHandler];
+export const CommandHandlers = [
+  CreateWordHandler,
+  UpdateWordHandler,
+  CreateWordGroupHandler,
+];
 
 export const WordRepository = {
   provide: 'WordRepository',

@@ -1,11 +1,11 @@
 import { Global, Module } from '@nestjs/common';
-import { ICommandBus, Transaction } from './shared-di-container.config';
+import { Transaction } from './shared-di-container.config';
 import { CqrsModule } from '@nestjs/cqrs';
 
 @Global()
 @Module({
   imports: [CqrsModule],
-  providers: [Transaction, ICommandBus],
-  exports: [CqrsModule, Transaction, ICommandBus],
+  providers: [Transaction],
+  exports: [CqrsModule, Transaction],
 })
 export class SharedModule {}

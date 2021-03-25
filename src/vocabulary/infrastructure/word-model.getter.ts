@@ -24,7 +24,15 @@ export class WordModelGetter extends Word {
     return this._value;
   }
 
+  set value(value: string) {
+    this._value = value;
+  }
+
   get translation(): string {
     return this._translation;
+  }
+
+  set translation(value: string) {
+    this._translation = value;
   }
 }

@@ -1,13 +1,13 @@
 import { Controller, UseGuards, Request, Post, Body } from '@nestjs/common';
 import { JwtAuthGuard } from '../../shared/infrastructure/jwt-auth.guard';
-import { WordGroupFacade } from '../application/word-group.facade';
 import { AuthenticatedUser } from '../../shared/application/authenticated-user';
 import { CreateWordGroupRequest } from './create-word-group.request';
+import { VocabularyFacade } from '../application/vocabulary.facade';
 
 @Controller('word-group')
 @UseGuards(JwtAuthGuard)
 export class WordGroupController {
-  constructor(private readonly wordGroupFacade: WordGroupFacade) {}
+  constructor(private readonly vocabularyFacade: VocabularyFacade) {}
 
   @Post()
   async create(
@@ -16,6 +16,6 @@ export class WordGroupController {
   ): Promise<void> {
     const authenticatedUser: AuthenticatedUser = request.user;
 
-    await this.wordGroupFacade.create(body, authenticatedUser.id);
+    await this.vocabularyFacade.createWordGroup(body, authenticatedUser.id);
   }
 }

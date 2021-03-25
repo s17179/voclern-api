@@ -1,7 +1,7 @@
 import { UserId } from '../../shared/domain/user-id';
 import { WordId } from '../domain/word-id';
 
-export class CreateWordCommand {
+export class UpdateWordCommand {
   constructor(
     public readonly id: WordId,
     public readonly doerId: UserId,

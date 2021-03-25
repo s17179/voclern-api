@@ -10,4 +10,12 @@ export class UserId {
   toString(): string {
     return this._id.toString();
   }
+
+  equals(userId: UserId): boolean {
+    return this._id.equals(userId.id);
+  }
+
+  notEquals(userId: UserId): boolean {
+    return !this.equals(userId);
+  }
 }

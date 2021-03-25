@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { WordController } from './word.controller';
-import { WordFacade } from '../application/word.facade';
+import { VocabularyFacade } from '../application/vocabulary.facade';
 import {
   CommandHandlers,
   WordEntityRepository,
@@ -10,20 +10,18 @@ import {
 } from './vocabulary-di-container.config';
 import { WordEntityMapper } from './word-entity.mapper';
 import { WordGroupController } from './word-group.controller';
-import { WordGroupFacade } from '../application/word-group.facade';
 import { WordGroupEntityMapper } from './word-group-entity.mapper';
 
 @Module({
   controllers: [WordController, WordGroupController],
   providers: [
-    WordFacade,
+    VocabularyFacade,
     ...CommandHandlers,
     WordRepository,
     WordEntityMapper,
     WordEntityRepository,
     WordGroupRepository,
     WordGroupEntityRepository,
-    WordGroupFacade,
     WordGroupEntityMapper,
   ],
 })
