@@ -8,10 +8,12 @@ import { WordGroupEntity } from './word-group.entity';
 import { CreateWordGroupHandler } from '../application/create-word-group.handler';
 import { MikroOrmWordGroupRepositoryGateway } from './mikro-orm-word-group.repository-gateway';
 import { UpdateWordHandler } from '../application/update-word.handler';
+import { DeleteWordHandler } from '../application/delete-word.handler';
 
 export const CommandHandlers = [
   CreateWordHandler,
   UpdateWordHandler,
+  DeleteWordHandler,
   CreateWordGroupHandler,
 ];
 

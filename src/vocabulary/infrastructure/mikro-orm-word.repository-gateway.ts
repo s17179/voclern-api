@@ -37,4 +37,10 @@ export class MikroOrmWordRepositoryGateway implements WordRepository {
     wordEntity.value = wordModelGetter.value;
     wordEntity.translation = wordModelGetter.translation;
   }
+
+  delete(word: Word): void {
+    const wordEntity = this.wordEntityMapper.mapToEntity(word);
+
+    this.wordEntityRepository.remove(wordEntity);
+  }
 }

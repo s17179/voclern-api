@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Param,
   Post,
   Put,
@@ -42,6 +43,16 @@ export class WordController {
         value: body.value,
         translation: body.translation,
       },
+      authenticatedUser.id,
+    );
+  }
+
+  @Delete(':id')
+  async delete(@Request() request, @Param('id') wordId: string): Promise<void> {
+    const authenticatedUser: AuthenticatedUser = request.user;
+
+    await this.vocabularyFacade.deleteWord(
+      { id: wordId },
       authenticatedUser.id,
     );
   }

@@ -7,4 +7,6 @@ export interface WordRepository {
   get(wordId: WordId): Promise<Word>;
 
   update(word: Word): Promise<void>;
+
+  delete(word: Word): void;
 }

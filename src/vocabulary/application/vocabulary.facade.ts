@@ -10,6 +10,8 @@ import { CreateWordGroupContract } from './create-word-group.contract';
 import { CreateWordGroupCommand } from './create-word-group.command';
 import { WordGroupId } from '../domain/word-group-id';
 import { CommandBus } from '@nestjs/cqrs';
+import { DeleteWordContract } from './delete-word.contract';
+import { DeleteWordCommand } from './delete-word.command';
 
 @Injectable()
 export class VocabularyFacade {
@@ -36,6 +38,10 @@ export class VocabularyFacade {
         contract.translation,
       ),
     );
+  }
+
+  deleteWord(contract: DeleteWordContract, doerId: UserId): Promise<void> {
+    return this.commandBus.execute(new DeleteWordCommand(contract, doerId));
   }
 
   createWordGroup(
