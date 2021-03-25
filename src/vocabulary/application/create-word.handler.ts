@@ -13,9 +13,9 @@ export class CreateWordHandler implements ICommandHandler<CreateWordCommand> {
   ) {}
 
   async execute(command: CreateWordCommand): Promise<any> {
-    const { id, doerId, value, translation } = command;
+    const { id, doerId, value, translation, wordGroupId } = command;
 
-    const word = new Word(id, doerId, value, translation);
+    const word = new Word(id, doerId, value, translation, wordGroupId);
 
     try {
       await this.transaction.begin();

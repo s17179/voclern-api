@@ -11,6 +11,10 @@ export class Migration20210316201829 extends Migration {
     );
 
     this.addSql(
+      'alter table "vocabulary"."word_groups" add constraint "word_groups_id_unique" unique ("id");',
+    );
+
+    this.addSql(
       'alter table "vocabulary"."word_groups" add constraint "word_groups_numeric_id_unique" unique ("numeric_id");',
     );
   }

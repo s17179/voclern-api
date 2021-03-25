@@ -14,4 +14,7 @@ export class CreateWordRequest implements CreateWordContract {
   @MinLength(1)
   @MaxLength(255)
   translation: string;
+
+  @IsUUID()
+  wordGroupId: string;
 }

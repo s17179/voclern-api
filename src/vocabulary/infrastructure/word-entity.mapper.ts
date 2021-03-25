@@ -3,6 +3,7 @@ import { WordEntity } from './word.entity';
 import { WordModelGetter } from './word-model.getter';
 import { WordId } from '../domain/word-id';
 import { UserId } from '../../shared/domain/user-id';
+import { WordGroupId } from '../domain/word-group-id';
 
 export class WordEntityMapper {
   mapToEntity(word: Word): WordEntity {
@@ -13,6 +14,7 @@ export class WordEntityMapper {
       wordModelGetter.creatorId.id,
       wordModelGetter.value,
       wordModelGetter.translation,
+      wordModelGetter.wordGroupId.id,
     );
   }
 
@@ -22,6 +24,7 @@ export class WordEntityMapper {
       new UserId(wordEntity.creatorId),
       wordEntity.value,
       wordEntity.translation,
+      new WordGroupId(wordEntity.wordGroupId),
     );
   }
 }

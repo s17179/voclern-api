@@ -22,6 +22,7 @@ export class VocabularyFacade {
         doerId,
         contract.value,
         contract.translation,
+        new WordGroupId(Uuid.fromExisting(contract.wordGroupId)),
       ),
     );
   }

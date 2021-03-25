@@ -20,11 +20,21 @@ export class WordEntity {
   @Property({ name: 'translation' })
   private _translation: string;
 
-  constructor(id: Uuid, creatorId: Uuid, value: string, translation: string) {
+  @Property({ name: 'word_group_id' })
+  private readonly _wordGroupId: Uuid;
+
+  constructor(
+    id: Uuid,
+    creatorId: Uuid,
+    value: string,
+    translation: string,
+    wordGroupId: Uuid,
+  ) {
     this._id = id;
     this._creatorId = creatorId;
     this._value = value;
     this._translation = translation;
+    this._wordGroupId = wordGroupId;
   }
 
   get id(): Uuid {
@@ -53,5 +63,9 @@ export class WordEntity {
 
   set translation(value: string) {
     this._translation = value;
+  }
+
+  get wordGroupId(): Uuid {
+    return this._wordGroupId;
   }
 }
